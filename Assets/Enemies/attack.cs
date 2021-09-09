@@ -6,7 +6,7 @@ public class attack : MonoBehaviour
 {
     public Animator animator;
     public Transform attackPoint;
-    public float attackRange = 5f;
+    public float attackRange;
     public LayerMask enemyLayers;
     public float attackRate = 0.5f;
     float nextAttackTime = 0f;
@@ -15,7 +15,8 @@ public class attack : MonoBehaviour
     {
         if (Time.time >= nextAttackTime)
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            //estado de ataque
+            if (IsInAttackRange)
             {
                 Attack();
                 nextAttackTime = Time.time + 1f/attackRate;
