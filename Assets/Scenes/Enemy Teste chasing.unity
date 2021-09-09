@@ -161,6 +161,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7166291345398805328, guid: fc1405b881d90084790afc1dd61ec9aa, type: 3}
   m_PrefabInstance: {fileID: 7166291345276123999}
   m_PrefabAsset: {fileID: 0}
+--- !u!143 &122685457 stripped
+CharacterController:
+  m_CorrespondingSourceObject: {fileID: 7166291345398805326, guid: fc1405b881d90084790afc1dd61ec9aa, type: 3}
+  m_PrefabInstance: {fileID: 7166291345276123999}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &122685459 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7166291345398805324, guid: fc1405b881d90084790afc1dd61ec9aa, type: 3}
@@ -447,6 +452,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackState: {fileID: 1822238838}
   isInAttackRange: 0
+  transformPlayer: {fileID: 0}
+  transformEnemy: {fileID: 122685459}
+  controller: {fileID: 122685457}
+  speed: 2
 --- !u!1 &1822238836
 GameObject:
   m_ObjectHideFlags: 0
@@ -457,7 +466,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1822238837}
   - component: {fileID: 1822238838}
-  - component: {fileID: 1822238839}
   m_Layer: 7
   m_Name: AttackState
   m_TagString: Untagged
@@ -491,25 +499,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa508c62d3d19ba4597cf224d486b393, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1822238839
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1822238836}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06d4c74a38a0d2042baf1a9889062797, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
   animator: {fileID: 0}
   attackPoint: {fileID: 932074410}
-  attackRange: 0.6
+  attackRange: 0.39
   enemyLayers:
     serializedVersion: 2
     m_Bits: 64
-  attackRate: 0.5
+  attackRate: 2
 --- !u!1 &1898280997
 GameObject:
   m_ObjectHideFlags: 0
@@ -553,6 +549,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59148dcf03cd1754ebab5f3669c96d29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  transformPlayer: {fileID: 0}
   chaseState: {fileID: 1375945540}
   canSeeThePlayer: 0
 --- !u!1 &2084648971
@@ -686,5 +683,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7166291345398805327, guid: fc1405b881d90084790afc1dd61ec9aa, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: fc1405b881d90084790afc1dd61ec9aa, type: 3}
