@@ -10,10 +10,15 @@ public class Movement : MonoBehaviour
     public SpriteRenderer sprite;
     Vector3 direction;
 
+	Camera camera;
+	Vector3 limits;
+
     // Update is called once per frame
     void Update()
     {
-        float horizontal = Input.GetAxisRaw("Horizontal");
+    	//camera = GetComponent<Camera>();
+		//limits = camera.Viewport
+		float horizontal = Input.GetAxisRaw("Horizontal");
         switch (horizontal)
         {
             case 1: transform.localScale = new Vector3(-1,1,1);

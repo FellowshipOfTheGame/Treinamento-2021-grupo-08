@@ -22,15 +22,18 @@ public class attack : MonoBehaviour
             }
         }
     }
-    void Attack()
+	
+	void Attack()
     {
         //animator.SetTrigger("Attack");
         Collider[] hitEnemies = Physics.OverlapSphere(attackPoint.position, attackRange,enemyLayers);
         foreach (Collider enemy in hitEnemies)
         {
             Debug.Log("atacado " + enemy.name);
-        }
+			enemy.gameObject.GetComponent<Character>().Hit(10);
+		}
     }
+
     void OnDrawGizmosSelected()
     {
         if (attackPoint == null)

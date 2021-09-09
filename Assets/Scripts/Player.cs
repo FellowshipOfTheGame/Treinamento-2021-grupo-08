@@ -3,33 +3,52 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Player : MonoBehaviour
+public class Player : Character
 {
-	
-	public int maxHealth = 100;
-	
-	public HealthBar healthBar;
-	public Slider slider;
-	public Image image;
-	public Text name;
+	public Animator animator;
+    public Transform attackPoint;
+    public float attackRange = 5f;
+    public LayerMask enemyLayers;
+    public float attackRate = 0.5f;
+    float nextAttackTime = 0f;
 
-	private HealthSystem healthSystem;
+	private int basicAttackDamage = 10;
 
-	// Start is called before the first frame update
-    void Start() {
-		healthSystem = new HealthSystem(maxHealth);
-		healthBar.Setup(healthSystem, slider, image, name);
-	}
+	public GameObject hat;
 
-    // Update is called once per frame
-    void Update() {
-		// Basic Attack
-		if(Input.GetKeyDown(KeyCode.Z))
-		{
-			// Basic attack animation
-			
-		}		
+    void Update()
+    {
+        if (Time.time >= nextAttackTime)
+        {
+            if (Input.GetKeyDown(KeyCode.Z)) {
+                BasicAttack();
+                nextAttackTime = Time.time + 1f/attackRate;
+            }
+			if (Input.GetKeyDown(KeyCode.X)) {
+				GameObject[] throwed = GameObject.FindGameObjectsWithTag("Hat");
+				if(throwed.Length == 0){
+					GameObject clone;
+					clone = Instantiate(hat, new Vector3(transform.position.x, transform.position.y + 1, transform.position.z), transform.rotation) as GameObject;
+				}
+			}
+        }
+    }
 
+	void BasicAttack() {
+        //animator.SetTrigger("BasicAttack");
+        Collider[] hitEnemies = Physics.OverlapSphere(attackPoint.position, attackRange,enemyLayers);
+        foreach (Collider enemy in hitEnemies)
+        {
+            Debug.Log("atacado " + enemy.name);
+			enemy.gameObject.GetComponent<Character>().Hit(basicAttackDamage);
+		}
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        if (attackPoint == null)
+        return;
+        Gizmos.DrawWireSphere(attackPoint.position,attackRange);
     }
 
 	private void FixedUpdate() {
@@ -39,6 +58,7 @@ public class Player : MonoBehaviour
 			movement.enabled = false;
 			Debug.Log("Player is dead!!!");
 			// Death Animation
+			// animator.SetTrigger("Death");
 		}
 	}
 
