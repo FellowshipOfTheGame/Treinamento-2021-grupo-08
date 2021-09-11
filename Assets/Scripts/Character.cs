@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Character : MonoBehaviour
 {
-	[SerializeField] private int maxHealth = 100;
+	[SerializeField] protected int maxHealth = 100;
 	
 	public HealthBar healthBar;
 	public Slider slider;
@@ -13,6 +13,7 @@ public class Character : MonoBehaviour
 	public Text name;
 
 	public HealthSystem healthSystem;
+
 
 	// Start is called before the first frame update
     void Start()
@@ -25,14 +26,4 @@ public class Character : MonoBehaviour
 		healthSystem.Damage(damage);
 	}
 	
-	private void FixedUpdate() {
-		// Checks if player is dead
-		if(healthSystem.GetHealth() == 0) {
-//			Movement movement = GetComponent<Movement>();
-//			movement.enabled = false;
-//			Debug.Log("Player is dead!!!");
-			// Death Animation
-			// animator.SetTrigger("Death");
-		}
-	}
 }
