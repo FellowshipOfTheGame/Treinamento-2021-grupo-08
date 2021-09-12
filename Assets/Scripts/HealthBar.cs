@@ -5,19 +5,20 @@ using UnityEngine.UI;
 
 public class HealthBar : MonoBehaviour
 {
-    // UI
+	
+	// UI
 	private Slider slider;
 	private Image image;
 	private Text name;
 
-    private HealthSystem healthSystem;
-	
-    public void Setup(HealthSystem healthSystem, Slider slider, Image image, Text name) {
-        this.healthSystem = healthSystem;
-        this.slider = slider;
-        this.image = image;
-        this.name = name;
-    }
+	private HealthSystem healthSystem;
+
+	public void Setup(HealthSystem healthSystem, Slider slider, Image image, Text name) {
+		this.healthSystem = healthSystem;
+		this.slider = slider;
+		this.image = image;
+		this.name = name;
+	}	
 
     // Update is called once per frame
     private void Update()
