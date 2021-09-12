@@ -34,7 +34,7 @@ public class Player : Character
     }
 
 	void BasicAttack() {
-        //animator.SetTrigger("BasicAttack");
+        animator.SetTrigger("BasicAttack");
         Collider[] hitEnemies = Physics.OverlapSphere(attackPoint.position, attackRange, enemyLayers);
 		Collider[] hitMandacuru = Physics.OverlapSphere(attackPoint.position, attackRange, mandacuruLayer);
 		foreach (Collider enemy in hitEnemies)
@@ -58,7 +58,7 @@ public class Player : Character
 			GameObject clone;
 			clone = Instantiate(hat, new Vector3(transform.position.x, transform.position.y + 1, transform.position.z), transform.rotation) as GameObject;
 		}
-	}
+}
 
     void OnDrawGizmosSelected()
     {

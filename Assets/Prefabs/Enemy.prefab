@@ -728,7 +728,7 @@ MonoBehaviour:
   transformEnemy: {fileID: 7166291345398805324}
   controller: {fileID: 7166291345398805326}
   transformPlayer: {fileID: 0}
-  speed: 2
+  speed: 1.5
 --- !u!114 &4321088488697922098
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -741,7 +741,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8104496b33878de6b959068750ae902, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 10
   healthBar: {fileID: 1945150730564769063}
   slider: {fileID: 8606280970438975812}
   image: {fileID: 1852784640218019851}

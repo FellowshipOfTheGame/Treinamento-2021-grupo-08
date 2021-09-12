@@ -22,8 +22,18 @@ public class Character : MonoBehaviour
 		healthBar.Setup(healthSystem, slider, image, name);
 	}
 
+	public int GetHealth()
+	{
+		return healthSystem.GetHealth();
+	}
+
 	public void Hit(int damage) {
 		healthSystem.Damage(damage);
+	}
+
+	public void Heal(int amount)
+	{
+		healthSystem.Heal(amount);
 	}
 	
 }

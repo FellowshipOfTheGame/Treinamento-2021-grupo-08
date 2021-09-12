@@ -15,7 +15,7 @@ public class Boomerang : MonoBehaviour
 	public float attackRange = 4f;
 	Transform sprite;
 	private Transform attackPoint;
-    public LayerMask enemyLayers;
+    public LayerMask enemyLayers, mandacuruLayer;
 	 			
 	Vector3 direction;
 	Vector3 locationInFrontOfPlayer;
@@ -77,11 +77,19 @@ public class Boomerang : MonoBehaviour
 	void Hit() 
 	{
 		Collider[] hitEnemies = Physics.OverlapSphere(attackPoint.position, 0.7f, enemyLayers);
+		Collider[] hitMandacuru = Physics.OverlapSphere(attackPoint.position, attackRange, mandacuruLayer);
 		foreach (Collider enemy in hitEnemies)
 		{
 			Debug.Log("-" + damage + "(" + enemy.name + ")");
 			enemy.gameObject.GetComponent<Character>().Hit(damage);
 		}
+		foreach (Collider mandacuru in hitMandacuru)
+		{
+			Debug.Log("cortou o mandacuru ");
+			mandacuru.gameObject.GetComponent<SpriteRenderer>().flipX = true;
+			transform.parent.gameObject.GetComponent<Character>().Heal(20);	
+		}
+
 	}
 
 }

@@ -9,6 +9,7 @@ public class Movement : MonoBehaviour
     public float speed = 6f; 
     public SpriteRenderer sprite;
     Vector3 direction;
+	public Animator animator; 
 
 	public float minHeight = 17.5f;
 	public 	float maxHeight = 19.5f;		
@@ -32,9 +33,9 @@ public class Movement : MonoBehaviour
 		
 		switch (horizontal)
         {
-            case 1: transform.localScale = new Vector3(-1,1,1);
+            case 1: transform.localScale = new Vector3(-1f, 1f, 1f);
             break;
-            case -1: transform.localScale = new Vector3(1,1,1);
+            case -1: transform.localScale = new Vector3(1f, 1f, 1f);
             break;
         }
         
@@ -69,6 +70,9 @@ public class Movement : MonoBehaviour
    		if(direction.magnitude >= 0.1f)
         {
             controller.Move(direction*speed*Time.deltaTime);
-        }
+			animator.SetBool("Walking", true); 
+		} else{
+			animator.SetBool("Walking", false); 
+		}
     }
 }

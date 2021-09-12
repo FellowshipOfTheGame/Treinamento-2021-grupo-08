@@ -7,10 +7,10 @@ public class SceneManager : MonoBehaviour
     public GameObject player; 
     public GameObject spawner;
 	public CameraFollow cameraFollow;
+	public GameObject familyUI;	
 
 	public int numberScenes = 10;
 
-	private int currScene = 1;
 	public Vector2 sceneLimits = new Vector2(5f, 15f);
 	public float xScene = 10f;
 
@@ -28,27 +28,45 @@ public class SceneManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		// First scene
-		if(player.transform.position.x >= 5f)
+		Debug.Log("currScene = " + currScene());
+		switch(currScene())
 		{
-			if(!spawned[0])
-			{
-				GameObject clone;
-				clone = Instantiate(spawner, player.transform.position, spawner.transform.rotation);
-				clone.GetComponent<EnemySpawner>().numberOfEnemies = 1;	
-				spawned[0] = true;
-			}
+			case 1:
+				SpawnEnemies(1, currScene());
+				break;
+			case 2:
+				SpawnEnemies(2, currScene());	
+				break;
+			case 3:	
+				Family();
+				break;
+			default:
+				break;
+				// GameEnd;
 		}
-		// Second Scene
-		if(player.transform.position.x >= 15f)
-		{
-			if(!spawned[1])
-			{
-				GameObject clone;
-				clone = Instantiate(spawner, player.transform.position, spawner.transform.rotation);
-				clone.GetComponent<EnemySpawner>().numberOfEnemies = 2;	
-				spawned[1] = true;
-			}
-		}
+		
     }
+
+	private int currScene()
+	{
+		return (int)((player.transform.position.x-5f) / 10f + 1);	
+	}
+
+	private void SpawnEnemies(int numberOfEnemies, int sceneNumber)
+	{
+		if(!spawned[sceneNumber-1])
+		{
+			Debug.Log("create spawn");
+			GameObject clone;
+			clone = Instantiate(spawner, player.transform.position, spawner.transform.rotation);
+			clone.GetComponent<EnemySpawner>().numberOfEnemies = numberOfEnemies;	
+			spawned[sceneNumber-1] = true;
+		}		
+	}
+
+	private void Family()
+	{
+		familyUI.SetActive(true);
+	}
+
 }

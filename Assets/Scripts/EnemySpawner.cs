@@ -19,8 +19,11 @@ public class EnemySpawner : MonoBehaviour
     void Start()
     {
 		player = GameObject.FindGameObjectWithTag("Player").transform;
-//		GetComponent<BoxCollider>().center = player.position;
-    }
+		//GetComponent<BoxCollider>().center = player.position;
+ 		FindObjectOfType<CameraFollow>().maxXAndY.x = player.position.x;
+		FindObjectOfType<CameraFollow>().minXAndY.x = player.position.x;
+		Spawn();
+ 	}
 
 	void Update()
 	{
@@ -30,8 +33,8 @@ public class EnemySpawner : MonoBehaviour
 			if(enemies <= 0)
 			{
 				FindObjectOfType<CameraFollow>().maxXAndY.x = 100;
-				//Destroy(this.gameObject);
-				gameObject.SetActive(false);
+				Destroy(this.gameObject);
+				//gameObject.SetActive(false);
 			}
 		}	
 	}
@@ -57,7 +60,7 @@ public class EnemySpawner : MonoBehaviour
 		}
 	}
 
-	private void OnTriggerEnter(Collider other)
+/*	private void OnTriggerEnter(Collider other)
 	{
 		if(other.CompareTag("Player"))
 		{
@@ -66,5 +69,5 @@ public class EnemySpawner : MonoBehaviour
 			Spawn();
 		}
 	}
-
+*/
 }
