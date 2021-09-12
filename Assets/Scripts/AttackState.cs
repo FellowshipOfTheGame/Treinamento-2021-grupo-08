@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class AttackState : State
 {
+    public IdleState idleState;
     public Animator animator;
     public Transform attackPoint;
     public float attackRange;
@@ -26,9 +27,8 @@ public class AttackState : State
             Attack();
             nextAttackTime = Time.time + 1f/attackRate;
         }
-        //logica para voltar para outro stado
         //nao deixar bater quando o jogador morrer
-        return this;
+        return idleState;
     }
 
     void Attack()
