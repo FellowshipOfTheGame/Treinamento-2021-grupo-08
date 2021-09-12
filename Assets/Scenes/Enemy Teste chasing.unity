@@ -452,7 +452,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackState: {fileID: 1822238838}
   isInAttackRange: 0
-  transformPlayer: {fileID: 0}
+  transformPlayer: {fileID: 413429604}
+  attackDistance: 1
   transformEnemy: {fileID: 122685459}
   controller: {fileID: 122685457}
   speed: 2
@@ -499,6 +500,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa508c62d3d19ba4597cf224d486b393, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  idleState: {fileID: 1898280999}
   animator: {fileID: 0}
   attackPoint: {fileID: 932074410}
   attackRange: 0.39
@@ -549,9 +551,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59148dcf03cd1754ebab5f3669c96d29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transformPlayer: {fileID: 0}
+  transformPlayer: {fileID: 413429604}
+  transformEnemy: {fileID: 122685459}
   chaseState: {fileID: 1375945540}
   canSeeThePlayer: 0
+  chaseDistance: 2
 --- !u!1 &2084648971
 GameObject:
   m_ObjectHideFlags: 0
@@ -677,6 +681,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7166291345398805324, guid: fc1405b881d90084790afc1dd61ec9aa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7166291345398805325, guid: fc1405b881d90084790afc1dd61ec9aa, type: 3}
+      propertyPath: m_FlipX
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7166291345398805328, guid: fc1405b881d90084790afc1dd61ec9aa, type: 3}
