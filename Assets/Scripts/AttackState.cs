@@ -38,8 +38,10 @@ public class AttackState : State
         foreach (Collider enemy in hitEnemies)
         {
             Debug.Log("atacado " + enemy.name);
-        }
+			enemy.gameObject.GetComponent<Character>().Hit(10);
+		}
     }
+
     void OnDrawGizmosSelected()
     {
         if (attackPoint == null)

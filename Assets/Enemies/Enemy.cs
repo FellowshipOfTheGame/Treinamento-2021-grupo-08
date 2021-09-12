@@ -3,38 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Enemy : MonoBehaviour
+public class Enemy : Character
 {
-	
-	public int maxHealth = 100;
-	
-	private bool isDead = false;
-	
-	public HealthBar healthBar;
-	public Slider slider;
-	public Image image;
-	public Text name;
-	// Start is called before the first frame update
+
+	HealthBar enemyUI;
+
     void Start()
     {
-    	HealthSystem healthSystem = new HealthSystem(maxHealth);
-		healthBar.Setup(healthSystem, slider, image, name);
+    	healthSystem = new HealthSystem(maxHealth);
+		healthBar.Setup(healthSystem, slider, image, name);	
+		int enemies = FindObjectsOfType<Enemy>().Length;
+		healthBar.transform.position = new Vector3(healthBar.transform.position.x, healthBar.transform.position.y-42f*(enemies-1), healthBar.transform.position.z);
+	
 	}
 
-    // Update is called once per frame
-    void Update()
-    {
-		
-    }
-
-	private void FixedUpdate()
-	{
-		if(!isDead)
-		{
-			
-		} else
-		{
+	private void FixedUpdate() {
+		// Checks if player is dead
+		if(healthSystem.GetHealth() == 0) {
+			Debug.Log("Enemy is dead!!!");
+			// Death Animation
+			// animator.SetTrigger("Death");
+			Destroy(this.gameObject);
 		}
 	}
 
+
 }
+
