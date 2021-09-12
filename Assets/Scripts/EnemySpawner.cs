@@ -5,11 +5,11 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
    	public GameObject[] enemy;
-	
+
 	public int numberOfEnemies;
 	public float spawnTime;
 	
-	private int currEnemies; // current count of enemies alive in the scene.
+	private int currEnemies = 1; // current count of enemies alive in the scene.
 	
 	public float minZ, maxZ;
 
@@ -19,7 +19,7 @@ public class EnemySpawner : MonoBehaviour
     void Start()
     {
 		player = GameObject.FindGameObjectWithTag("Player").transform;
-		GetComponent<BoxCollider>().center = player.position;
+//		GetComponent<BoxCollider>().center = player.position;
     }
 
 	void Update()
@@ -29,7 +29,8 @@ public class EnemySpawner : MonoBehaviour
 			int enemies = FindObjectsOfType<Enemy>().Length;
 			if(enemies <= 0)
 			{
-				FindObjectOfType<CameraFollow>().maxXAndY.x = 200;
+				FindObjectOfType<CameraFollow>().maxXAndY.x = 100;
+				//Destroy(this.gameObject);
 				gameObject.SetActive(false);
 			}
 		}	

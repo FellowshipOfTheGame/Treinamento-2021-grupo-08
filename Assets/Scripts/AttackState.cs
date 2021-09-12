@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class attack : MonoBehaviour
+public class AttackState : State
 {
     public Animator animator;
     public Transform attackPoint;
-    public float attackRange = 5f;
+    public float attackRange;
     public LayerMask enemyLayers;
     public float attackRate = 0.5f;
     float nextAttackTime = 0f;
@@ -15,15 +15,23 @@ public class attack : MonoBehaviour
     {
         if (Time.time >= nextAttackTime)
         {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                Attack();
-                nextAttackTime = Time.time + 1f/attackRate;
-            }
+            nextAttackTime = Time.time + 1f/attackRate;
         }
     }
-	
-	void Attack()
+
+    public override State RunCurrentState()
+    {
+        if (Time.time >= nextAttackTime)
+        {
+            Attack();
+            nextAttackTime = Time.time + 1f/attackRate;
+        }
+        //logica para voltar para outro stado
+        //nao deixar bater quando o jogador morrer
+        return this;
+    }
+
+    void Attack()
     {
         //animator.SetTrigger("Attack");
         Collider[] hitEnemies = Physics.OverlapSphere(attackPoint.position, attackRange,enemyLayers);
@@ -41,3 +49,4 @@ public class attack : MonoBehaviour
         Gizmos.DrawWireSphere(attackPoint.position,attackRange);
     }
 }
+

@@ -6,11 +6,15 @@ public class MovementEnemy : MonoBehaviour
 {
     public Transform transformEnemy;
     public CharacterController controller;
+    public  Transform transformPlayer = null;
     public float speed = 2f;
 
     void Update()
     {
-        Transform transformPlayer = GameObject.Find("Player").GetComponent<Transform>();
+        if (transformPlayer == null)
+        {
+            transformPlayer = GameObject.Find("Player").transform;
+        }
         Vector3 positionEnemy = transformEnemy.position;
         Vector3 positionPlayer = transformPlayer.position;
         
