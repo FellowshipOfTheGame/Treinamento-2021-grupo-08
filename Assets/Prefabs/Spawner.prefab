@@ -48,8 +48,8 @@ MonoBehaviour:
   - {fileID: 7166291345398805328, guid: c8fd6a2f2061429b4a8f9f923d380422, type: 3}
   numberOfEnemies: 2
   spawnTime: 5
-  minZ: 17
-  maxZ: 20
+  minZ: -1
+  maxZ: 4.4
   player: {fileID: 0}
 --- !u!65 &9012176999166815303
 BoxCollider:

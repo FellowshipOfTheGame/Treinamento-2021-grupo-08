@@ -8,11 +8,11 @@ public class SceneManager : MonoBehaviour
     public GameObject spawner;
 	public CameraFollow cameraFollow;
 	public GameObject familyUI;	
-
+	public Transform t_cenario;
+	private List<Cenario> cenarios = new List<Cenario>();
 	public int numberScenes = 10;
 
-	public Vector2 sceneLimits = new Vector2(5f, 15f);
-	public float xScene = 10f;
+	public int currScene = 0;
 
 	private bool[] spawned;
 
@@ -23,21 +23,24 @@ public class SceneManager : MonoBehaviour
 		cameraFollow = FindObjectOfType<CameraFollow>();
 		spawned = new bool[10];
 		for(int i=0; i<10; i++) spawned[i] = false;
+		foreach(Transform child in t_cenario)
+		{
+			cenarios.Add(child.GetComponent<Cenario>());	
+		}
 	}	
 
     // Update is called once per frame
     void Update()
     {
-		Debug.Log("currScene = " + currScene());
-		switch(currScene())
+		switch(currScene)
 		{
+			case 0:
+				SpawnEnemies(1);
+				break;
 			case 1:
-				SpawnEnemies(1, currScene());
+				SpawnEnemies(2);	
 				break;
-			case 2:
-				SpawnEnemies(2, currScene());	
-				break;
-			case 3:	
+			case 2:	
 				Family();
 				break;
 			default:
@@ -47,21 +50,41 @@ public class SceneManager : MonoBehaviour
 		
     }
 
-	private int currScene()
+	public void nextScene()
 	{
-		return (int)((player.transform.position.x-5f) / 10f + 1);	
+		FindObjectOfType<CameraFollow>().minXAndY.x = cenarios[currScene].LeftWall.transform.position.x;
+		cenarios[currScene].RightWall.enabled = false;	
+		currScene++;
+		cenarios[currScene].LeftWall.enabled = false;		
+		FindObjectOfType<CameraFollow>().maxXAndY.x = cenarios[currScene].center.position.x;
+			
 	}
 
-	private void SpawnEnemies(int numberOfEnemies, int sceneNumber)
+	public void onScene()
 	{
-		if(!spawned[sceneNumber-1])
+		FindObjectOfType<CameraFollow>().minXAndY.x = cenarios[currScene].center.position.x;
+		FindObjectOfType<CameraFollow>().maxXAndY.x = cenarios[currScene].center.position.x;
+		cenarios[currScene].LeftWall.enabled = true;				
+		SpawnEnemies(currScene+1);	
+	}
+
+	private void SpawnEnemies(int numberOfEnemies)
+	{
+		if(!spawned[currScene])
 		{
 			Debug.Log("create spawn");
 			GameObject clone;
-			clone = Instantiate(spawner, player.transform.position, spawner.transform.rotation);
+			clone = Instantiate(spawner, cenarios[currScene].center.position, spawner.transform.rotation);
 			clone.GetComponent<EnemySpawner>().numberOfEnemies = numberOfEnemies;	
-			spawned[sceneNumber-1] = true;
-		}		
+			spawned[currScene] = true;
+		} else
+		{
+			if( FindObjectsOfType<Enemy>().Length == 0 )
+			{
+				cenarios[currScene].LeavingTrigger.enabled = true;	
+				cenarios[currScene+1].ComingTrigger.enabled = true;	
+			}
+		}	
 	}
 
 	private void Family()

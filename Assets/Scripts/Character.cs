@@ -14,7 +14,6 @@ public class Character : MonoBehaviour
 
 	public HealthSystem healthSystem;
 
-
 	// Start is called before the first frame update
     void Start()
     {
@@ -27,7 +26,8 @@ public class Character : MonoBehaviour
 		return healthSystem.GetHealth();
 	}
 
-	public void Hit(int damage) {
+	public void Hit(int damage) 
+	{
 		healthSystem.Damage(damage);
 	}
 

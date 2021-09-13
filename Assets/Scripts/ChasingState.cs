@@ -8,16 +8,19 @@ public class ChasingState : State
     public bool isInAttackRange;
     public Transform transformPlayer;
     public float attackDistance;
+	
+	public Animator animator;
 
     public Transform transformEnemy;
     public CharacterController controller;
-    public float speed = 2f;
+  	public float speed = 2f;
 
     public override State RunCurrentState()
     {
         Vector3 positionEnemy = transformEnemy.position;
         Vector3 positionPlayer = transformPlayer.position;
-        Vector3 direction = (positionPlayer - positionEnemy);
+        Vector3 direction = new Vector3(positionPlayer.x - positionEnemy.x, 0f, positionPlayer.z - positionEnemy.z);
+//		Vector3 direction = (positionPlayer - positionEnemy);
         float distance = (direction.x*direction.x) + (direction.z*direction.z);
         if (attackDistance*attackDistance > distance)
         {
@@ -39,8 +42,8 @@ public class ChasingState : State
     {
         Vector3 positionEnemy = transformEnemy.position;
         Vector3 positionPlayer = transformPlayer.position;
-        Vector3 direction = (positionPlayer - positionEnemy).normalized;
-
+        //Vector3 direction = (positionPlayer - positionEnemy).normalized;
+		Vector3 direction = new Vector3(positionPlayer.x - positionEnemy.x, 0f, positionPlayer.z - positionEnemy.z).normalized;
         if (direction.x > 0.1f)
         {
             transformEnemy.localScale = new Vector3(-1,1,1);
@@ -53,6 +56,11 @@ public class ChasingState : State
         if(direction.magnitude >= 0.1f)
         {
             controller.Move(direction*speed*Time.deltaTime);
-        }
+			animator.SetBool("Walking", true); 
+	    } 
+		//else 
+	//	{
+	//		animator.SetBool("Walking", false);
+	//	}
     }
 }
