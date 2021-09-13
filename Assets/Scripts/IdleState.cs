@@ -10,9 +10,12 @@ public class IdleState : State
     public bool canSeeThePlayer;
     public float chaseDistance;
 
+	public Animator animator;
+	
     public override State RunCurrentState()
     {
-        if (transformPlayer == null)
+ 		animator.SetBool("Walking", false);
+	       if (transformPlayer == null)
         {
             transformPlayer = GameObject.Find("Player").transform;
         }

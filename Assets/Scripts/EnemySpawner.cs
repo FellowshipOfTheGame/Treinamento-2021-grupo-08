@@ -10,7 +10,7 @@ public class EnemySpawner : MonoBehaviour
 	public float spawnTime;
 	
 	private int currEnemies = 1; // current count of enemies alive in the scene.
-	
+
 	public float minZ, maxZ;
 
 	public Transform player;
@@ -20,8 +20,8 @@ public class EnemySpawner : MonoBehaviour
     {
 		player = GameObject.FindGameObjectWithTag("Player").transform;
 		//GetComponent<BoxCollider>().center = player.position;
- 		FindObjectOfType<CameraFollow>().maxXAndY.x = player.position.x;
-		FindObjectOfType<CameraFollow>().minXAndY.x = player.position.x;
+// 		FindObjectOfType<CameraFollow>().maxXAndY.x = player.position.x;
+//		FindObjectOfType<CameraFollow>().minXAndY.x = player.position.x;
 		Spawn();
  	}
 
@@ -46,9 +46,9 @@ public class EnemySpawner : MonoBehaviour
 		spawnPosition.z = Random.Range(minZ, maxZ);
 		if(positionX)
 		{
-			spawnPosition = new Vector3(transform.position.x + 10, 0, spawnPosition.z);
+			spawnPosition = new Vector3(transform.position.x + 4, 0, spawnPosition.z);
 		} else {
-			spawnPosition = new Vector3(transform.position.x - 10, 0, spawnPosition.z);
+			spawnPosition = new Vector3(transform.position.x - 4, 0, spawnPosition.z);
 			
 		}
 

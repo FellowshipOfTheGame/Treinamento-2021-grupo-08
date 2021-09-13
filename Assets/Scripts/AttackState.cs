@@ -17,11 +17,13 @@ public class AttackState : State
         if (Time.time >= nextAttackTime)
         {
             nextAttackTime = Time.time + 1f/attackRate;
-        }
+        	Attack();
+		}
     }
 
     public override State RunCurrentState()
     {
+     	animator.SetTrigger("Attack");
         if (Time.time >= nextAttackTime)
         {
             Attack();
@@ -33,8 +35,7 @@ public class AttackState : State
 
     void Attack()
     {
-        //animator.SetTrigger("Attack");
-        Collider[] hitEnemies = Physics.OverlapSphere(attackPoint.position, attackRange,enemyLayers);
+       Collider[] hitEnemies = Physics.OverlapSphere(attackPoint.position, attackRange,enemyLayers);
         foreach (Collider enemy in hitEnemies)
         {
             Debug.Log("atacado " + enemy.name);
