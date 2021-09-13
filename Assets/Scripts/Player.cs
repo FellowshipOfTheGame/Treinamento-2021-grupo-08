@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Player : Character
 {
@@ -31,6 +32,10 @@ public class Player : Character
         
 			}
         }
+		if (GetHealth() <= 0)
+		{
+			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+		}
     }
 
 	void BasicAttack() {
