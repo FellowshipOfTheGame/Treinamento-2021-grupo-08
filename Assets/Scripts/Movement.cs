@@ -19,7 +19,8 @@ public class Movement : MonoBehaviour
     void Update()
     {
 
-//		dist = transform.position.z - Camera.main.transform.position.z*Mathf.Cos(Camera.main.transform.eulerAngles.x);
+		dist = Vector3.Distance(Camera.main.transform.position, transform.position); 
+			//transform.position.z - Camera.main.transform.position.z*Mathf.Cos(Camera.main.transform.eulerAngles.x);
 //		var frustumHeight = 2.0f * distance * Mathf.Tan(Camera.main.fieldOfView * 0.5f * Mathf.Deg2Rad);
 
 //		Debug.Log(frustumHeight);
@@ -40,7 +41,7 @@ public class Movement : MonoBehaviour
         }
         
 		float vertical = Input.GetAxisRaw("Vertical");
-//		float minWidth = Camera.main.ViewportToWorldPoint(new Vector3(0f, 1f, yCamera)).x;
+		float minWidth = Camera.main.ViewportToWorldPoint(new Vector3(0f, 1f, dist)).x;
 //		float maxWidth = Camera.main.ViewportToWorldPoint(new Vector3(1f, 1f, yCamera)).x;
 //		float minHeight = Camera.main.ViewportToWorldPoint(new Vector3(0f, 0f, yCamera)).z + 1;
 //		float maxHeight = Camera.main.ViewportToWorldPoint(new Vector3(0f, 1f, yCamera)).y;
@@ -48,9 +49,9 @@ public class Movement : MonoBehaviour
 //		float minWidth = Camera.main.ScreenToWorldPoint(new Vector3(0, 0, zCamera)).x;
 //		float maxWidth = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, 0, zCamera)).x;	
 //			Debug.Log("min:" + minWidth + " max: " + maxWidth);
-//		if (transform.position.x < minWidth+0.1f && horizontal < 0){
-//				horizontal = 0f;
-//		}
+		if (transform.position.x < minWidth+0.1f && horizontal < 0){
+				horizontal = 0f;
+		}
 //		if (transform.position.x > maxWidth-0.1f && horizontal > 0){
 //			horizontal = 0f;
 //		}

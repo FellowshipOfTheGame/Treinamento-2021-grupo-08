@@ -13,7 +13,7 @@ public class Player : Character
     public float attackRate = 0.5f;
     float nextAttackTime = 0f;
 
-	private int basicAttackDamage = 10;
+	[SerializeField] private int basicAttackDamage = 10;
 
 	public GameObject hat;
 	
@@ -52,11 +52,12 @@ public class Player : Character
 
 	void LongRangeAttack() 
 	{
-		GameObject[] throwed = GameObject.FindGameObjectsWithTag("Hat");
+	    animator.SetTrigger("HatAttack");
+ 		GameObject[] throwed = GameObject.FindGameObjectsWithTag("Hat");
 		if(throwed.Length == 0) 
 		{
 			GameObject clone;
-			clone = Instantiate(hat, new Vector3(transform.position.x, transform.position.y + 1, transform.position.z), transform.rotation) as GameObject;
+			clone = Instantiate(hat, new Vector3(transform.position.x-0.6f, transform.position.y + 0.7f, transform.position.z), transform.rotation) as GameObject;
 		}
 }
 

@@ -7,14 +7,15 @@ public class Boomerang : MonoBehaviour
 	bool go;
 
 	GameObject player;
-	GameObject hat;
+//	GameObject hat;
 
 	public float speed = 6f;
 	public int damage = 5;	
 
 	public float attackRange = 4f;
-	Transform sprite;
-	private Transform attackPoint;
+//	Transform sprite;
+	GameObject sprite;
+//	private Transform attackPoint;
     public LayerMask enemyLayers, mandacuruLayer;
 	 			
 	Vector3 direction;
@@ -25,14 +26,11 @@ public class Boomerang : MonoBehaviour
 	{
 		go = false; 
 		player = GameObject.Find("Player");
-		hat = GameObject.Find("Hat");
-
-		hat.GetComponent<SpriteRenderer>().enabled = false;
+//		hat = GameObject.Find("Hat");
+		sprite = transform.GetChild(0).gameObject;	
+		sprite.GetComponent<SpriteRenderer>().enabled = false;
 		
-		// Hat sprite to rotate
-		sprite = gameObject.transform.GetChild(0);
-		
-		attackPoint = gameObject.transform.GetChild(1);	
+//		attackPoint = gameObject.transform.GetChild(1);	
 		// Direction in which the player is facing
 		direction = new Vector3(-player.transform.localScale.x, 0, 0);
 
@@ -42,7 +40,7 @@ public class Boomerang : MonoBehaviour
 		StartCoroutine(Boom());
 
 		// Check if the hat hit any enemy
-		InvokeRepeating("Hit", 0, 0.2f);
+		//InvokeRepeating("Hit", 0, 0.2f);
 	}
 
 	IEnumerator Boom() {
@@ -69,12 +67,28 @@ public class Boomerang : MonoBehaviour
 		// The player catches the hat
 		if (!go && Vector3.Distance(player.transform.position, transform.position) == 1 ) {
 			// For the player to catch the hat, we enable the visibility and destroy the clone.
-			hat.GetComponent<SpriteRenderer>().enabled = true;
+//			hat.GetComponent<SpriteRenderer>().enabled = true;
 			Destroy(this.gameObject);
 		}
 	}
 
-	void Hit() 
+	void OnCollisionEnter(Collision collision)
+	{
+		foreach(Collision obj in collision)
+		{
+			if(obj.gameObject.layer == 7)
+			{
+				obj.gameObject.GetComponent<Character>().Hit(damage);	
+			} else if (obj.gameObject.layer == 8)
+			{
+				Debug.Log("cortou o mandacuru ");
+				//mandacuru.gameObject.GetComponent<SpriteRenderer>().flipX = true;
+				transform.parent.gameObject.GetComponent<Character>().Heal(20);	
+			}
+		}
+	}
+
+/*	void Hit() 
 	{
 		Collider[] hitEnemies = Physics.OverlapSphere(attackPoint.position, 0.7f, enemyLayers);
 		Collider[] hitMandacuru = Physics.OverlapSphere(attackPoint.position, attackRange, mandacuruLayer);
@@ -91,5 +105,5 @@ public class Boomerang : MonoBehaviour
 		}
 
 	}
-
+*/
 }
