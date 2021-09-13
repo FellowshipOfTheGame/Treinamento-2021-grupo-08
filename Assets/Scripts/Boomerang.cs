@@ -16,7 +16,7 @@ public class Boomerang : MonoBehaviour
 	Transform sprite;
 	private Transform attackPoint;
     public LayerMask enemyLayers, mandacuruLayer;
-	 			
+
 	Vector3 direction;
 	Vector3 locationInFrontOfPlayer;
 

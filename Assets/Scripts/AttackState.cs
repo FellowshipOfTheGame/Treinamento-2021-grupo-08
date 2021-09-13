@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AttackState : State
+public abstract class AttackState : State
 {
     public IdleState idleState;
     public Animator animator;
@@ -11,36 +11,32 @@ public class AttackState : State
     public LayerMask enemyLayers;
     public float attackRate = 0.5f;
     float nextAttackTime = 0f;
-
-    void Update()
+    public bool possoAtacar;
+    // Start is called before the first frame update
+    
+    protected void Update()
     {
         if (Time.time >= nextAttackTime)
         {
             nextAttackTime = Time.time + 1f/attackRate;
+            possoAtacar = true;
         }
     }
 
+    // Update is called once per frame
     public override State RunCurrentState()
     {
-        if (Time.time >= nextAttackTime)
+            Debug.Log("ataquei" + Time.time + " " + nextAttackTime);
+        if (possoAtacar)
         {
             Attack();
-            nextAttackTime = Time.time + 1f/attackRate;
+            possoAtacar = false;
         }
         //nao deixar bater quando o jogador morrer
         return idleState;
     }
 
-    void Attack()
-    {
-        //animator.SetTrigger("Attack");
-        Collider[] hitEnemies = Physics.OverlapSphere(attackPoint.position, attackRange,enemyLayers);
-        foreach (Collider enemy in hitEnemies)
-        {
-            Debug.Log("atacado " + enemy.name);
-			enemy.gameObject.GetComponent<Character>().Hit(10);
-		}
-    }
+    protected abstract void Attack();
 
     void OnDrawGizmosSelected()
     {
@@ -49,4 +45,3 @@ public class AttackState : State
         Gizmos.DrawWireSphere(attackPoint.position,attackRange);
     }
 }
-
