@@ -12,22 +12,22 @@ public class AttackState : State
     public float attackRate = 0.5f;
     float nextAttackTime = 0f;
 
+    public bool canAttack = true;
+
     void Update()
     {
         if (Time.time >= nextAttackTime)
         {
             nextAttackTime = Time.time + 1f/attackRate;
-        	Attack();
+            canAttack = true;
 		}
     }
 
     public override State RunCurrentState()
     {
-     	animator.SetTrigger("Attack");
-        if (Time.time >= nextAttackTime)
+        if (canAttack)
         {
             Attack();
-            nextAttackTime = Time.time + 1f/attackRate;
         }
         //nao deixar bater quando o jogador morrer
         return idleState;
@@ -35,12 +35,14 @@ public class AttackState : State
 
     void Attack()
     {
-       Collider[] hitEnemies = Physics.OverlapSphere(attackPoint.position, attackRange,enemyLayers);
+        Collider[] hitEnemies = Physics.OverlapSphere(attackPoint.position, attackRange,enemyLayers);
         foreach (Collider enemy in hitEnemies)
         {
             Debug.Log("atacado " + enemy.name);
 			enemy.gameObject.GetComponent<Character>().Hit(10);
+            animator.SetTrigger("Attack");
 		}
+        canAttack = false;
     }
 
     void OnDrawGizmosSelected()

@@ -6,7 +6,8 @@ using UnityEngine.UI;
 public class Character : MonoBehaviour
 {
 	[SerializeField] protected int maxHealth = 100;
-	
+	public Animator animator;
+
 	public HealthBar healthBar;
 	public Slider slider;
 	public Image image;
@@ -26,8 +27,9 @@ public class Character : MonoBehaviour
 		return healthSystem.GetHealth();
 	}
 
-	public void Hit(int damage) 
+	public virtual void Hit(int damage) 
 	{
+		animator.SetTrigger("Impact");
 		healthSystem.Damage(damage);
 	}
 

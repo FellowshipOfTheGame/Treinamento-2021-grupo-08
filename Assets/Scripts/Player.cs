@@ -2,17 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Player : Character
 {
-	public Animator animator;
+	
     public Transform attackPoint;
     public float attackRange = 5f;
     public LayerMask enemyLayers;
 	public LayerMask mandacuruLayer;
     public float attackRate = 0.5f;
-    float nextAttackTime = 0f;
+	public Sprite mandacuruCortado;
 
+
+    float nextAttackTime = 0f;
 	[SerializeField] private int basicAttackDamage = 10;
 
 	public GameObject hat;
@@ -22,7 +25,8 @@ public class Player : Character
     	if (Time.time >= nextAttackTime)
         {
             if (Input.GetKeyDown(KeyCode.Z)) {
-                BasicAttack();
+				animator.SetTrigger("BasicAttack");
+				Invoke(nameof(BasicAttack), 0.8f);
                 nextAttackTime = Time.time + 1f/attackRate;
             }
 			if (Input.GetKeyDown(KeyCode.X)) {
@@ -31,10 +35,14 @@ public class Player : Character
         
 			}
         }
+		if (GetHealth() <= 0)
+		{
+			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+		}
     }
 
 	void BasicAttack() {
-        animator.SetTrigger("BasicAttack");
+        
         Collider[] hitEnemies = Physics.OverlapSphere(attackPoint.position, attackRange, enemyLayers);
 		Collider[] hitMandacuru = Physics.OverlapSphere(attackPoint.position, attackRange, mandacuruLayer);
 		foreach (Collider enemy in hitEnemies)
@@ -45,8 +53,8 @@ public class Player : Character
 		foreach (Collider mandacuru in hitMandacuru)
 		{
 			Debug.Log("cortou o mandacuru ");
-			mandacuru.gameObject.GetComponent<SpriteRenderer>().flipX = true;
-			healthSystem.Heal(20);	
+			mandacuru.gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = mandacuruCortado;
+			healthSystem.Heal(75);	
 		}
     }
 

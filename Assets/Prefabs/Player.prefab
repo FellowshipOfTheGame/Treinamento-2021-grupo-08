@@ -197,12 +197,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b28075258f06c688a6ee9631724e2d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 200
+  animator: {fileID: 3072819276473015046}
   healthBar: {fileID: 0}
   slider: {fileID: 0}
   image: {fileID: 0}
   name: {fileID: 0}
-  animator: {fileID: 3072819276473015046}
   attackPoint: {fileID: 3072819275617068427}
   attackRange: 2
   enemyLayers:
@@ -211,7 +211,8 @@ MonoBehaviour:
   mandacuruLayer:
     serializedVersion: 2
     m_Bits: 256
-  attackRate: 0.5
+  attackRate: 0.75
+  mandacuruCortado: {fileID: 21300000, guid: a52b222d632601248a99d9a02f483b3c, type: 3}
   basicAttackDamage: 10
   hat: {fileID: 50624006956394468}
 --- !u!114 &3072819274481304142
@@ -604,13 +605,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 6361185659164959213, guid: b75f5b314684b454fbf13c572423615e, type: 3}
---- !u!4 &7384135432823091018 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5538689581914416845, guid: b75f5b314684b454fbf13c572423615e, type: 3}
-  m_PrefabInstance: {fileID: 3072819276552456583}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &4653608957069443986 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -1571711837637801451, guid: b75f5b314684b454fbf13c572423615e, type: 3}
+  m_PrefabInstance: {fileID: 3072819276552456583}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7384135432823091018 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5538689581914416845, guid: b75f5b314684b454fbf13c572423615e, type: 3}
   m_PrefabInstance: {fileID: 3072819276552456583}
   m_PrefabAsset: {fileID: 0}

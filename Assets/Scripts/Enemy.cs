@@ -6,15 +6,10 @@ using UnityEngine.UI;
 public class Enemy : Character
 {
 
-	HealthBar enemyUI;
-
     void Start()
     {
     	healthSystem = new HealthSystem(maxHealth);
-		healthBar.Setup(healthSystem, slider, image, name);	
-		int enemies = FindObjectsOfType<Enemy>().Length;
-		healthBar.transform.position = new Vector3(healthBar.transform.position.x, healthBar.transform.position.y-42f*(enemies-1), healthBar.transform.position.z);
-	
+		int enemies = FindObjectsOfType<Enemy>().Length;	
 	}
 
 	private void FixedUpdate() {
@@ -26,7 +21,6 @@ public class Enemy : Character
 			Destroy(this.gameObject);
 		}
 	}
-
 
 }
 
